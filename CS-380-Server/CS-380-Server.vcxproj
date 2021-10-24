@@ -126,7 +126,12 @@
     <ClCompile Include="Source.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="DataManager.h" />
+    <ClInclude Include="HostManager.h" />
+    <ClInclude Include="IUMachine.h" />
+    <ClInclude Include="LoginStorage.h" />
     <ClInclude Include="Machine.h" />
+    <ClInclude Include="OUMachine.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
