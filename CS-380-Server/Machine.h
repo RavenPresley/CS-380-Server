@@ -5,7 +5,8 @@
 class Machine
 {
 public:
-	
+	Machine(); // Default constructor for Machine
+
 private:
 	std::string assetTag;
 	std::string serviceTagNum;
@@ -13,3 +14,8 @@ private:
 	std::string serialNum;
 	bool isMac;
 };
+
+Machine::Machine()
+{
+
+}

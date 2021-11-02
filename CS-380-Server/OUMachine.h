@@ -16,3 +16,14 @@ private:
 	std::string IT_Location;
 
 };
+
+OUMachine::OUMachine()
+{
+
+}
+
+void OUMachine::MoveInUse()
+{
+
+}
+

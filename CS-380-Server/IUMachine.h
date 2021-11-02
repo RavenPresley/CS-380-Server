@@ -18,3 +18,13 @@ private:
 	std::string ownerInfo;
 	
 };
+
+IUMachine::IUMachine()
+{
+
+}
+
+void IUMachine::MoveOutOfUse()
+{
+
+}
