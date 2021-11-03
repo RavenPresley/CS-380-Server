@@ -20,11 +20,6 @@ DataManager::DataManager()
 
 }
 
-void DataManager::DataManagerConstructor()
-{
-
-}
-
 void DataManager::AddMachine()
 {
 
