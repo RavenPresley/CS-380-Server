@@ -17,10 +17,10 @@ public:
 	//Will take passed machine and overwrite machine already in Data that has the same asset tag.
 	//Must have way to search for given machine, will do so using SearchMachine and AssetTag
 	void EditMachine(Machine);
-	//Will take given information, in the form of first string, and get what type of info it is from second parameter
+	//Will take given machine, and search against the other machines for matching asset tag.
 	//Will search through the machines in Data for a match, and return what spot the found data is at.
-	//If matching point is not found, return -999
-	int SearchMachine(std::string,std::string);
+	//If matching asset tag is not found, return -999
+	int SearchMachine(Machine);
 	//Take passed machine and display its info to the server console. Mainly to be used internally.
 	void DisplayInfo(Machine);
 private:
@@ -39,7 +39,7 @@ void DataManager::AddMachine(Machine newMachine)
 
 void DataManager::DeleteMachine(Machine delMachine)
 {
-
+	
 }
 
 void DataManager::EditMachine(Machine newMachine)
@@ -47,12 +47,13 @@ void DataManager::EditMachine(Machine newMachine)
 
 }
 
-int DataManager::SearchMachine(std::string searchInfo,std::string searchType)
+int DataManager::SearchMachine(Machine searchMachine)
 {
 
 }
 
 void DataManager::DisplayInfo(Machine displayMachine)
 {
-	
+	std::string info = displayMachine.GetInfo();
+	std::cout << info;
 }

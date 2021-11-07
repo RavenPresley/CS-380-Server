@@ -12,6 +12,8 @@ public:
 	void SetSerialNum(std::string);
 	void SetIsMac(bool);
 
+	std::string GetInfo();
+
 	std::string GetAssetTag();
 	std::string GetServiceTagNum();
 	std::string GetMakeAndModel();
@@ -24,6 +26,41 @@ private:
 	std::string serialNum;
 	bool isMac;
 };
+
+std::string Machine::GetInfo()
+{
+	std::string Info;
+
+	Info += this->GetAssetTag();
+	Info += ',';
+	Info += this->GetServiceTagNum();
+	Info += ',';
+	Info += this->GetMakeAndModel();
+	Info += ',';
+	Info += this->GetIsMac();
+	Info += ',';
+	//BuildingName
+	Info += ',';
+	//Room Number
+	Info += ',';
+	//Public or Private
+	Info += ',';
+	//DepartmentInfo
+	Info += ',';
+	//OwnerInfo
+	Info += ',';
+	//SurplusStatus
+	Info += ',';
+	//reimageStatus
+	Info += ',';
+	//workingStatus
+	Info += ',';
+	//IT_Location
+	Info += ',';
+	Info += "BASECLASS";
+
+	return Info;
+}
 
 std::string Machine::GetAssetTag()
 {
