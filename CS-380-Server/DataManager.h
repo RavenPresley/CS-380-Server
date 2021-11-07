@@ -1,5 +1,6 @@
 #pragma once
 #include <iostream>
+#include <vector>
 #include "IUMachine.h"
 #include "OUMachine.h"
 
@@ -12,7 +13,8 @@ public:
 	void EditMachine();
 	void SearchMachine();
 	void DisplayInfo();
-
+private:
+	std::vector<Machine> Data;
 };
 
 DataManager::DataManager()

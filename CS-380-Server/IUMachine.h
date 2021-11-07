@@ -15,6 +15,8 @@ public:
 
 	IUMachine(); //default contructor
 	IUMachine(std::string, std::string, std::string, std::string, std::string, OUMachine); //Constructor from OUMachine
+
+	std::string GetInfo();
 private:
 	std::string buildingName;
 	std::string roomNum;
@@ -53,6 +55,41 @@ IUMachine::IUMachine()
 	SetPublicPrivate("");
 	SetDepartmentInfo("");
 	SetOwnerInfo("");
+}
+
+std::string IUMachine::GetInfo()
+{
+	std::string Info;
+
+	Info += this->GetAssetTag();
+	Info += ',';
+	Info += this->GetServiceTagNum();
+	Info += ',';
+	Info += this->GetMakeAndModel();
+	Info += ',';
+	Info += this->GetIsMac();
+	Info += ',';
+	Info += buildingName;
+	Info += ',';
+	Info += roomNum;
+	Info += ',';
+	Info += publicOrPrivate;
+	Info += ',';
+	Info += departmentInfo;
+	Info += ',';
+	Info += ownerInfo;
+	Info += ',';
+	//Surplus Status
+	Info += ',';
+	//ReimageStatus
+	Info += ',';
+	//WorkingStatus
+	Info += ',';
+	//ITLocation
+	Info += ',';
+	Info += 'IU';
+
+	return Info;
 }
 
 void IUMachine::SetBuildingName(std::string input)

@@ -11,8 +11,11 @@ public:
 	void SetReimageStatus(bool);
 	void SetWorkingStatus(bool);
 	void SetITLocation(std::string);
+
 	OUMachine();	//default constructor
 	OUMachine(bool, bool, bool, std::string, IUMachine);	//Constructor from IUMachine
+
+	std::string GetInfo();
 private:
 	bool surplusStatus;
 	bool reimageStatus;
@@ -46,6 +49,41 @@ OUMachine::OUMachine()
 	this->SetReimageStatus(false);
 	this->SetWorkingStatus(false);
 	this->SetITLocation("");
+}
+
+std::string OUMachine::GetInfo()
+{
+	std::string Info;
+
+	Info += this->GetAssetTag();
+	Info += ',';
+	Info += this->GetServiceTagNum();
+	Info += ',';
+	Info += this->GetMakeAndModel();
+	Info += ',';
+	Info += this->GetIsMac();
+	Info += ',';
+	//BuildingName
+	Info += ',';
+	//Room Number
+	Info += ',';
+	//Public or Private
+	Info += ',';
+	//DepartmentInfo
+	Info += ',';
+	//OwnerInfo
+	Info += ',';
+	Info += surplusStatus;
+	Info += ',';
+	Info += reimageStatus;
+	Info += ',';
+	Info += workingStatus;
+	Info += ',';
+	Info += IT_Location;
+	Info += ',';
+	Info += 'OU';
+
+	return Info;
 }
 
 void OUMachine::SetSurplusStatus(bool input)
