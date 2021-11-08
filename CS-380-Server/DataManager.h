@@ -35,11 +35,13 @@ DataManager::DataManager()
 void DataManager::AddMachine(Machine newMachine)
 {
 	Data.push_back(newMachine);
+
 }
 
 void DataManager::DeleteMachine(Machine delMachine)
 {
 	
+
 }
 
 void DataManager::EditMachine(Machine newMachine)

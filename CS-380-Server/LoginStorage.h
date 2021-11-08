@@ -26,6 +26,8 @@ bool LoginStorage::TryLogin(std::string userNameInput, std::string passwordInput
 
 void LoginStorage::CreateLogin(std::string newUserName, std::string newPassword)
 {
+	// Will likely use a text file to enter the new login info
+
 	// Set correctUserName = newUserName for TryLogin() to validate later
 	correctUserName = newUserName;
 
