@@ -8,7 +8,8 @@ class DataManager
 {
 public:
 	DataManager(); // Default constructor for DataManager
-
+	//Gets passed a machine's data in the form of string, returns the machine object form of it.
+	Machine NewMachine(std::string);
 	//Adds new IU/OU Machine to Data
 	void AddMachine(Machine);
 	//Removes Passed IU/OU Machine from Data
@@ -30,6 +31,11 @@ private:
 DataManager::DataManager()
 {
 	//Eventually, when constructed, will load all data from data.csv into the vector. For now won't do anything except create the object.
+}
+
+Machine NewMachine(std::string NewData)
+{
+
 }
 
 void DataManager::AddMachine(Machine newMachine)
