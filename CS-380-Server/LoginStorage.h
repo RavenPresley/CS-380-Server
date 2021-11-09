@@ -1,4 +1,4 @@
-##pragma once
+#pragma once
 #include <iostream>
 
 class LoginStorage
@@ -9,7 +9,7 @@ public:
 	
 private: 
 	std::string correctUserName;
-	std::string correctPasword;
+	std::string correctPassword;
 };
 
 bool LoginStorage::TryLogin(std::string userNameInput, std::string passwordInput)

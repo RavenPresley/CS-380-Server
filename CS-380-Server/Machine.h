@@ -19,12 +19,47 @@ public:
 	std::string GetMakeAndModel();
 	std::string GetSerialNum();
 	bool GetIsMac();
+
+	void MoveUseStatus(bool);
+
+	// In Use Machine
+	
+	void SetBuildingName(std::string);
+	void SetRoomNum(std::string);
+	void SetPublicPrivate(std::string);
+	void SetDepartmentInfo(std::string);
+	void SetOwnerInfo(std::string);
+
+
+	// Out of Use Machine
+	
+	void SetSurplusStatus(bool);
+	void SetReimageStatus(bool);
+	void SetWorkingStatus(bool);
+	void SetIT_Location(std::string);
+
 private:
 	std::string assetTag;
 	std::string serviceTagNum;
 	std::string makeAndModel;
 	std::string serialNum;
 	bool isMac;
+	bool InUse; // True for In-Use, false for Out-of-Use??
+
+	// In Use Machine
+	std::string buildingName;
+	std::string roomNum;
+	std::string publicOrPrivate;
+	std::string departmentInfo;
+	std::string ownerInfo;
+
+	// Out of Use Machine
+	bool surplusStatus;
+	bool reimageStatus;
+	bool workingStatus;
+	std::string IT_Location;
+
+
 };
 
 std::string Machine::GetInfo()
@@ -124,5 +159,71 @@ void Machine::SetMakeAndModel(std::string input)
 void Machine::SetSerialNum(std::string input)
 {
 	serialNum = input;
+	return;
+}
+
+// In-Use Machine
+
+void Machine::MoveUseStatus(bool input) // Input true = IU; false = OU;
+{
+	if (input)
+	{
+		InUse = true;
+	}
+	else if(!input)
+	{
+		InUse = false;
+	}
+	else
+	{
+		// Error - must be true or false
+	}
+}
+void Machine::SetBuildingName(std::string input)
+{
+	buildingName = input;
+	return;
+}
+void Machine::SetRoomNum(std::string input)
+{
+	roomNum = input;
+	return;
+}
+void Machine::SetPublicPrivate(std::string input)
+{
+	publicOrPrivate = input;
+	return;
+}
+void Machine::SetDepartmentInfo(std::string input)
+{
+	departmentInfo = input;
+	return;
+}
+void Machine::SetOwnerInfo(std::string input)
+{
+	ownerInfo = input;
+	return;
+}
+
+// Out-of-Use Machine
+
+void Machine::SetSurplusStatus(bool input)
+{
+	surplusStatus = input;
+	return;
+}
+void Machine::SetReimageStatus(bool input)
+{
+	reimageStatus = input; 
+	return;
+}
+void Machine::SetWorkingStatus(bool input)
+{
+	workingStatus = input;
+	return;
+}
+void Machine::SetIT_Location(std::string input)
+{
+	IT_Location = input;
 	return;
 }
