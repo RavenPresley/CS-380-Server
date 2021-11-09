@@ -6,6 +6,9 @@ class Machine
 {
 public:
 	Machine(); // Default constructor for Machine
+
+			// Every Machine
+
 	void SetAssetTag(std::string);
 	void SetServiceTagNum(std::string);
 	void SetMakeAndModel(std::string);
@@ -22,7 +25,7 @@ public:
 
 	void MoveUseStatus(bool);
 
-	// In Use Machine
+			// In Use Machine
 	
 	void SetBuildingName(std::string);
 	void SetRoomNum(std::string);
@@ -30,13 +33,23 @@ public:
 	void SetDepartmentInfo(std::string);
 	void SetOwnerInfo(std::string);
 
+	std::string GetBuildingName();
+	std::string GetRoomNum();
+	std::string GetPublicPrivate();
+	std::string GetDepartmentInfo();
+	std::string GetOwnerInfo();
 
-	// Out of Use Machine
+			// Out of Use Machine
 	
 	void SetSurplusStatus(bool);
 	void SetReimageStatus(bool);
 	void SetWorkingStatus(bool);
 	void SetIT_Location(std::string);
+
+	bool GetSurplusStatus();
+	bool GetReimageStatus();
+	bool GetWorkingStatus();
+	std::string GetIT_Location();
 
 private:
 	std::string assetTag;
@@ -44,16 +57,17 @@ private:
 	std::string makeAndModel;
 	std::string serialNum;
 	bool isMac;
-	bool InUse; // True for In-Use, false for Out-of-Use??
 
-	// In Use Machine
+
+	bool InUse; // True for In-Use, false for Out-of-Use??
+				// In Use Machine
 	std::string buildingName;
 	std::string roomNum;
 	std::string publicOrPrivate;
 	std::string departmentInfo;
 	std::string ownerInfo;
 
-	// Out of Use Machine
+				// Out of Use Machine
 	bool surplusStatus;
 	bool reimageStatus;
 	bool workingStatus;
@@ -74,23 +88,23 @@ std::string Machine::GetInfo()
 	Info += ',';
 	Info += this->GetIsMac();
 	Info += ',';
-	//BuildingName
+	Info += this->GetBuildingName(); //Building Name
 	Info += ',';
-	//Room Number
+	Info += this->GetRoomNum();//Room Number
 	Info += ',';
-	//Public or Private
+	Info += this->GetPublicPrivate();//Public or Private
 	Info += ',';
-	//DepartmentInfo
+	Info += this->GetDepartmentInfo();//DepartmentInfo
 	Info += ',';
-	//OwnerInfo
+	Info += this->GetOwnerInfo();//OwnerInfo
 	Info += ',';
-	//SurplusStatus
+	Info += this->GetSurplusStatus();//SurplusStatus
 	Info += ',';
-	//reimageStatus
+	Info += this->GetReimageStatus();//reimageStatus
 	Info += ',';
-	//workingStatus
+	Info += this->GetWorkingStatus();//workingStatus
 	Info += ',';
-	//IT_Location
+	Info += this->GetIT_Location();//IT_Location
 	Info += ',';
 	Info += "BASECLASS";
 
@@ -162,7 +176,8 @@ void Machine::SetSerialNum(std::string input)
 	return;
 }
 
-// In-Use Machine
+///////////////////////////////////////////////////////////////////////
+// In-Use Machine - Set Info
 
 void Machine::MoveUseStatus(bool input) // Input true = IU; false = OU;
 {
@@ -205,7 +220,31 @@ void Machine::SetOwnerInfo(std::string input)
 	return;
 }
 
-// Out-of-Use Machine
+// In-Use Machine - Get Info 
+
+std::string Machine::GetBuildingName()
+{
+	return buildingName;
+}
+std::string Machine::GetRoomNum()
+{
+	return roomNum;
+}
+std::string Machine::GetPublicPrivate()
+{
+	return publicOrPrivate;
+}
+std::string Machine::GetDepartmentInfo()
+{
+	return departmentInfo;
+}
+std::string Machine::GetOwnerInfo()
+{
+	return ownerInfo;
+}  
+
+///////////////////////////////////////////////////////////////
+// Out-of-Use Machine - Set Info
 
 void Machine::SetSurplusStatus(bool input)
 {
@@ -226,4 +265,23 @@ void Machine::SetIT_Location(std::string input)
 {
 	IT_Location = input;
 	return;
+}
+
+// Out-of-Use Machine - Get Info
+
+bool Machine::GetSurplusStatus()
+{
+	return surplusStatus;
+}
+bool Machine::GetReimageStatus()
+{
+	return reimageStatus;
+}
+bool Machine::GetWorkingStatus()
+{
+	return workingStatus;
+}
+std::string Machine::GetIT_Location()
+{
+	return IT_Location;
 }
