@@ -1,0 +1,23 @@
+﻿  Source.cpp
+C:\Users\jonje\Desktop\Project\CS-380-Server\CS-380-Server\IUMachine.h(17,87): error C2061:  syntax error: identifier 'OUMachine'
+C:\Users\jonje\Desktop\Project\CS-380-Server\CS-380-Server\IUMachine.h(29,184): error C2061:  syntax error: identifier 'OUMachine'
+C:\Users\jonje\Desktop\Project\CS-380-Server\CS-380-Server\IUMachine.h(37,14): error C2065:  'machineInput': undeclared identifier
+C:\Users\jonje\Desktop\Project\CS-380-Server\CS-380-Server\IUMachine.h(38,19): error C2065:  'machineInput': undeclared identifier
+C:\Users\jonje\Desktop\Project\CS-380-Server\CS-380-Server\IUMachine.h(39,18): error C2065:  'machineInput': undeclared identifier
+C:\Users\jonje\Desktop\Project\CS-380-Server\CS-380-Server\IUMachine.h(40,15): error C2065:  'machineInput': undeclared identifier
+C:\Users\jonje\Desktop\Project\CS-380-Server\CS-380-Server\IUMachine.h(41,11): error C2065:  'machineInput': undeclared identifier
+C:\Users\jonje\Desktop\Project\CS-380-Server\CS-380-Server\IUMachine.h(90,14): warning C4305:  'argument': truncation from 'int' to '_Elem'
+C:\Users\jonje\Desktop\Project\CS-380-Server\CS-380-Server\IUMachine.h(90,14): warning C4305:         with
+C:\Users\jonje\Desktop\Project\CS-380-Server\CS-380-Server\IUMachine.h(90,14): warning C4305:         [
+C:\Users\jonje\Desktop\Project\CS-380-Server\CS-380-Server\IUMachine.h(90,14): warning C4305:             _Elem=char
+C:\Users\jonje\Desktop\Project\CS-380-Server\CS-380-Server\IUMachine.h(90,14): warning C4305:         ]
+C:\Users\jonje\Desktop\Project\CS-380-Server\CS-380-Server\IUMachine.h(90,10): warning C4309:  'argument': truncation of constant value
+C:\Users\jonje\Desktop\Project\CS-380-Server\CS-380-Server\OUMachine.h(84,14): warning C4305:  'argument': truncation from 'int' to '_Elem'
+C:\Users\jonje\Desktop\Project\CS-380-Server\CS-380-Server\OUMachine.h(84,14): warning C4305:         with
+C:\Users\jonje\Desktop\Project\CS-380-Server\CS-380-Server\OUMachine.h(84,14): warning C4305:         [
+C:\Users\jonje\Desktop\Project\CS-380-Server\CS-380-Server\OUMachine.h(84,14): warning C4305:             _Elem=char
+C:\Users\jonje\Desktop\Project\CS-380-Server\CS-380-Server\OUMachine.h(84,14): warning C4305:         ]
+C:\Users\jonje\Desktop\Project\CS-380-Server\CS-380-Server\OUMachine.h(84,10): warning C4309:  'argument': truncation of constant value
+C:\Users\jonje\Desktop\Project\CS-380-Server\CS-380-Server\LoginStorage.h(1,1): error C2019:  expected preprocessor directive, found '#'
+C:\Users\jonje\Desktop\Project\CS-380-Server\CS-380-Server\LoginStorage.h(17,62): error C2065:  'correctPassword': undeclared identifier
+C:\Users\jonje\Desktop\Project\CS-380-Server\CS-380-Server\LoginStorage.h(35,2): error C2065:  'correctPassword': undeclared identifier
