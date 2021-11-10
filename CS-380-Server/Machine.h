@@ -23,7 +23,8 @@ public:
 	std::string GetSerialNum();
 	bool GetIsMac();
 
-	void MoveUseStatus(bool);
+	void MoveInUse(std::string buildingName, std::string roomNum, std::string publicOrPrivate, std::string departmentInfo, std::string ownerInfo);
+	void MoveOutOfUse(bool surplusStatus, bool reimageStatus, bool workingStatus, std::string IT_Location);
 
 			// In Use Machine
 	
@@ -59,7 +60,9 @@ private:
 	bool isMac;
 
 
-	bool InUse; // True for In-Use, false for Out-of-Use??
+	std::string UseStatus; // String that will always contain IU or OU
+
+
 				// In Use Machine
 	std::string buildingName;
 	std::string roomNum;
@@ -179,21 +182,42 @@ void Machine::SetSerialNum(std::string input)
 ///////////////////////////////////////////////////////////////////////
 // In-Use Machine - Set Info
 
-void Machine::MoveUseStatus(bool input) // Input true = IU; false = OU;
+void Machine::MoveInUse(std::string buildingName, std::string roomNum, std::string publicOrPrivate, std::string departmentInfo, std::string ownerInfo)
 {
-	if (input)
+	if (UseStatus == "IU")
 	{
-		InUse = true;
+		return;
 	}
-	else if(!input)
-	{
-		InUse = false;
-	}
-	else
-	{
-		// Error - must be true or false
-	}
+
+	SetBuildingName(buildingName);
+	SetRoomNum(roomNum);
+	SetPublicPrivate(publicOrPrivate);
+	SetDepartmentInfo(departmentInfo);
+	SetOwnerInfo(ownerInfo);
+	SetSurplusStatus(NULL);
+	SetReimageStatus(NULL);
+	SetWorkingStatus(NULL);
+	SetIT_Location("");
 }
+
+void Machine::MoveOutOfUse(bool surplusStatus, bool reimageStatus, bool workingStatus, std::string IT_Location)
+{
+	if (UseStatus == "OU")
+	{
+		return;
+	}
+
+	SetBuildingName("");
+	SetRoomNum("");
+	SetPublicPrivate("");
+	SetDepartmentInfo("");
+	SetOwnerInfo("");
+	SetSurplusStatus(surplusStatus);
+	SetReimageStatus(reimageStatus);
+	SetWorkingStatus(workingStatus);
+	SetIT_Location(IT_Location);
+}
+
 void Machine::SetBuildingName(std::string input)
 {
 	buildingName = input;

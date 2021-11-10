@@ -1,7 +1,5 @@
 #include "DataManager.h"
 #include "HostManager.h"
-#include "IUMachine.h"
-#include "OUMachine.h"
 #include "Machine.h"
 #include "LoginStorage.h"
 #include <iostream>

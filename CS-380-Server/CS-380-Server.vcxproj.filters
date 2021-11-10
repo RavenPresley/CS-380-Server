@@ -23,12 +23,6 @@
     <ClInclude Include="Machine.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="IUMachine.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="OUMachine.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="DataManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
