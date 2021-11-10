@@ -6,6 +6,7 @@ class Machine
 {
 public:
 	Machine(); // Default constructor for Machine
+	void FromString(std::string csv); //Construct from Proper String
 
 			// Every Machine
 
@@ -25,6 +26,8 @@ public:
 
 	void MoveInUse(std::string buildingName, std::string roomNum, std::string publicOrPrivate, std::string departmentInfo, std::string ownerInfo);
 	void MoveOutOfUse(bool surplusStatus, bool reimageStatus, bool workingStatus, std::string IT_Location);
+	void SetUseStatus(std::string);
+	std::string GetUseStatus();
 
 			// In Use Machine
 	
@@ -82,34 +85,61 @@ private:
 std::string Machine::GetInfo()
 {
 	std::string Info;
+	std::string temp;
 
-	Info += this->GetAssetTag();
+	Info += GetAssetTag();
 	Info += ',';
-	Info += this->GetServiceTagNum();
+	Info += GetServiceTagNum();
 	Info += ',';
-	Info += this->GetMakeAndModel();
+	Info += GetMakeAndModel();
 	Info += ',';
-	Info += this->GetIsMac();
+	Info += GetSerialNum();
 	Info += ',';
-	Info += this->GetBuildingName(); //Building Name
+	if (GetIsMac() == true)
+		temp = "true";
+	else if (GetIsMac() == false)
+		temp = "false";
+	else
+		temp = "";
+	Info += temp;//IsMac
 	Info += ',';
-	Info += this->GetRoomNum();//Room Number
+	Info += GetBuildingName(); //Building Name
 	Info += ',';
-	Info += this->GetPublicPrivate();//Public or Private
+	Info += GetRoomNum();//Room Number
 	Info += ',';
-	Info += this->GetDepartmentInfo();//DepartmentInfo
+	Info += GetPublicPrivate();//Public or Private
 	Info += ',';
-	Info += this->GetOwnerInfo();//OwnerInfo
+	Info += GetDepartmentInfo();//DepartmentInfo
 	Info += ',';
-	Info += this->GetSurplusStatus();//SurplusStatus
+	Info += GetOwnerInfo();//OwnerInfo
 	Info += ',';
-	Info += this->GetReimageStatus();//reimageStatus
+	if (GetSurplusStatus() == true)
+		temp = "true";
+	else if (GetSurplusStatus() == false)
+		temp = "false";
+	else
+		temp = "";
+	Info += temp;//SurplusStatus
 	Info += ',';
-	Info += this->GetWorkingStatus();//workingStatus
+	if (GetReimageStatus() == true)
+		temp = "true";
+	else if (GetReimageStatus() == false)
+		temp = "false";
+	else
+		temp = "";
+	Info += temp;//reimageStatus
 	Info += ',';
-	Info += this->GetIT_Location();//IT_Location
+	if (GetWorkingStatus() == true)
+		temp = "true";
+	else if (GetWorkingStatus() == false)
+		temp = "false";
+	else
+		temp = "";
+	Info += temp;//workingStatus
 	Info += ',';
-	Info += "BASECLASS";
+	Info += GetIT_Location();//IT_Location
+	Info += ',';
+	Info += UseStatus;
 
 	return Info;
 }
@@ -141,12 +171,163 @@ bool Machine::GetIsMac()
 
 Machine::Machine()
 {
-	this->SetAssetTag("");
-	this->SetAssetTag("");
-	this->SetServiceTagNum("");
-	this->SetMakeAndModel("");
-	this->SetSerialNum("");
-	this->SetIsMac(false);
+	//All Machines
+	SetAssetTag("");
+	SetServiceTagNum("");
+	SetMakeAndModel("");
+	SetSerialNum("");
+	SetIsMac(false);
+	//In Use
+	SetBuildingName("");
+	SetRoomNum("");
+	SetPublicPrivate("");
+	SetDepartmentInfo("");
+	SetOwnerInfo("");
+	//Out of Use
+	//SetSurplusStatus(NULL);
+	//SetReimageStatus(NULL);
+	//SetWorkingStatus(NULL);
+	SetIT_Location("");
+	//UseStatus
+	UseStatus = "";
+}
+
+void Machine::FromString(std::string csv)
+{
+	int i = 0;
+	int data = 0;
+	char curr;
+	std::string temp;
+
+	/*
+	Basic Idea Behind this Algorithm:
+	Create string temp that will hold the current part of the string, up until the next comma.
+
+	Example Data String:
+	"6818,54561,Dell HP Laptop,8941891,FALSE,Bert Combs,301,Public,Business and Technology,Sherif Rashad,,,,,IU"
+
+	Will iterate over i, adding csv[i] to temp.
+	Whenever curr is a comma, increase data by 1 and enter that particular data into the switch statement.
+	Data starts at zero, which will not correlate to any case within the switch statement.
+	Each number past zero will correlate to a particular piece of the machine's data.
+
+	1:AssetTag
+	2:Servicetag
+	3:MakeandModel
+	4:SerialNumber
+	5:IsMac
+	6:Buildingname
+	7:RoomNumber
+	8:PublicorPrivate
+	9:DeparmentInfo
+	10:OwnerInfo
+	11:SurplusStatus
+	12:ReimageStatus
+	13:WorkingStatus
+	14:ITLocation
+	15:IUorOU
+
+	When it reaches a particular case that object will be set to whatever is in temp.
+	Temp will then be set to "".
+	i will be increased by 1 to move past the comma.
+	*/
+
+	while (true)
+	{
+		curr = csv[i];
+
+		if (curr == ',')//Comma Found
+		{
+			data++;
+			//std::cout << "Data: " << data << " and temp is: " << temp << std::endl;
+			switch (data)
+			{
+			case 1:
+				SetAssetTag(temp);
+				temp = "";
+				break;
+			case 2:
+				SetServiceTagNum(temp);
+				temp = "";
+				break;
+			case 3:
+				SetMakeAndModel(temp);
+				temp = "";
+				break;
+			case 4:
+				SetSerialNum(temp);
+				temp = "";
+				break;
+			case 5:
+				if (temp == "true")
+					SetIsMac(true);
+				else if (temp == "false")
+					SetIsMac(false);
+				temp = "";
+				break;
+			case 6:
+				SetBuildingName(temp);
+				temp = "";
+				break;
+			case 7:
+				SetRoomNum(temp);
+				temp = "";
+				break;
+			case 8:
+				SetPublicPrivate(temp);
+				temp = "";
+				break;
+			case 9:
+				SetDepartmentInfo(temp);
+				temp = "";
+				break;
+			case 10:
+				SetOwnerInfo(temp);
+				temp = "";
+				break;
+			case 11:
+				if (temp == "true")
+					SetSurplusStatus(true);
+				else if (temp == "false")
+					SetSurplusStatus(false);
+				break;
+			case 12:
+				if (temp == "true")
+					SetReimageStatus(true);
+				else if (temp == "false")
+					SetReimageStatus(false);
+				break;
+			case 13:
+				if (temp == "true")
+					SetWorkingStatus(true);
+				else if (temp == "false")
+					SetWorkingStatus(false);
+				break;
+			case 14:
+				SetIT_Location(temp);
+				temp = "";
+				break;
+			case 15:
+				SetUseStatus(temp);
+				temp = "";
+				break;
+			}
+		}
+
+		if (curr == NULL)//EOF
+		{
+			SetUseStatus(temp);
+			temp = "";
+			break;
+		}
+
+		if (curr != ',')//Ignore next character if it is also a comma.
+		{
+			temp += curr;
+		}
+		i++;//Move to next character
+	}
+
 }
 
 void Machine::SetIsMac(bool input)
@@ -188,15 +369,15 @@ void Machine::MoveInUse(std::string buildingName, std::string roomNum, std::stri
 	{
 		return;
 	}
-
+	UseStatus = "IU";
 	SetBuildingName(buildingName);
 	SetRoomNum(roomNum);
 	SetPublicPrivate(publicOrPrivate);
 	SetDepartmentInfo(departmentInfo);
 	SetOwnerInfo(ownerInfo);
-	SetSurplusStatus(NULL);
-	SetReimageStatus(NULL);
-	SetWorkingStatus(NULL);
+	//SetSurplusStatus(NULL);
+	//SetReimageStatus(NULL);
+	//SetWorkingStatus(NULL);
 	SetIT_Location("");
 }
 
@@ -206,7 +387,7 @@ void Machine::MoveOutOfUse(bool surplusStatus, bool reimageStatus, bool workingS
 	{
 		return;
 	}
-
+	UseStatus = "OU";
 	SetBuildingName("");
 	SetRoomNum("");
 	SetPublicPrivate("");
@@ -216,6 +397,16 @@ void Machine::MoveOutOfUse(bool surplusStatus, bool reimageStatus, bool workingS
 	SetReimageStatus(reimageStatus);
 	SetWorkingStatus(workingStatus);
 	SetIT_Location(IT_Location);
+}
+
+void Machine::SetUseStatus(std::string Status)
+{
+	UseStatus = Status;
+}
+
+std::string Machine::GetUseStatus()
+{
+	return UseStatus;
 }
 
 void Machine::SetBuildingName(std::string input)

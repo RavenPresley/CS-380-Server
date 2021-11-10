@@ -1,9 +1,7 @@
 #pragma once
 #include <iostream>
 #include <vector>
-#include "IUMachine.h"
-#include "OUMachine.h"
-
+#include "Machine.h"
 class DataManager
 {
 public:
@@ -35,7 +33,8 @@ DataManager::DataManager()
 
 Machine NewMachine(std::string NewData)
 {
-
+	Machine m;
+	return m;
 }
 
 void DataManager::AddMachine(Machine newMachine)
@@ -57,7 +56,7 @@ void DataManager::EditMachine(Machine newMachine)
 
 int DataManager::SearchMachine(Machine searchMachine)
 {
-
+	return 0;
 }
 
 void DataManager::DisplayInfo(Machine displayMachine)
