@@ -23,23 +23,40 @@ public:
 	int SearchMachine(Machine);
 	//Take passed machine and display its info to the server console. Mainly to be used internally.
 	void DisplayInfo(Machine);
+	//Update csv file with current contents of Data vector
+	void UpdateCsv();
+	//Pull info from csv into Data Vector
+	void PullFromCsv();
 private:
 	std::vector<Machine> Data;
 };
 
 DataManager::DataManager()
 {
-	//Eventually, when constructed, will load all data from data.csv into the vector. For now won't do anything except create the object.
+	PullFromCsv();
 }
 
-Machine NewMachine(std::string NewData)
+void DataManager::UpdateCsv()
 {
-	Data.push_back(Machine(NewData));
+
+}
+
+void DataManager::PullFromCsv()
+{
+
+}
+
+Machine DataManager::NewMachine(std::string NewData)
+{
+	Machine newMachine;
+	newMachine.FromString(NewData);
+	return newMachine;
 }
 
 void DataManager::AddMachine(Machine newMachine)
 {
-
+	Data.push_back(newMachine);
+	UpdateCsv();
 }
 
 void DataManager::DeleteMachine(Machine delMachine)
@@ -47,19 +64,22 @@ void DataManager::DeleteMachine(Machine delMachine)
 	int index = SearchMachine(delMachine);
 	
 	if (index != -999)
-		Data.erase(index);
+		Data.erase(Data.begin() + index);
 	else
 		std::cout << "Machine to be deleted not found.";
+
+	UpdateCsv();
 }
 
 void DataManager::EditMachine(Machine newMachine)
 {
 	std::string mString = newMachine.GetInfo();
 	
-	int index = SearchMachine(newMachine)
+	int index = SearchMachine(newMachine);
 
+	Data.at(index) = newMachine;
 
-
+	UpdateCsv();
 }
 
 int DataManager::SearchMachine(Machine searchMachine)
