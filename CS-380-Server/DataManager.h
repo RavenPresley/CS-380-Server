@@ -1,7 +1,8 @@
 #pragma once
 #include <iostream>
 #include <vector>
-#include<algorithm>
+#include <fstream>
+#include <algorithm>
 #include "Machine.h"
 class DataManager
 {
@@ -38,12 +39,46 @@ DataManager::DataManager()
 
 void DataManager::UpdateCsv()
 {
+	std::string Header = "AssetTag,ServiceTagNum,MakeAndModel,SerialNumber,IsMac,BuildingName,RoomNumber,PublicOrPrivate,DepartmentInfo,OwnerInfo,SurplusStatus,ReimageStatus,WorkingStatus,ITLocation,IUorOU";
+	
+	std::ofstream csv("data.csv");
+	csv.clear();
 
+	csv << Header << std::endl;
+
+	for (int i = 0;i < Data.size(); i++)
+	{
+		csv << Data.at(i).GetInfo() << std::endl;
+	}
+
+	csv.close();
 }
 
 void DataManager::PullFromCsv()
 {
+	std::fstream csv;
 
+	csv.open("data.csv", std::ios::in);
+
+	std::string line,temp;
+
+	//Get Header
+	std::getline(csv, line,'\n');
+	//std::cout << "Header: " <<line << std::endl;
+	while (!csv.eof())
+	{
+		std::getline(csv, line,'\n');
+		//std::cout << "New Line: " << line << std::endl;
+		if (line == "")
+		{
+			//std::cout << "Skipping Empty Line" << std::endl;
+			continue;
+		}
+		Machine temp;
+		temp = NewMachine(line);
+		Data.push_back(temp);
+	}
+	//std::cout << "Data Size: " << Data.size() << std::endl;
 }
 
 Machine DataManager::NewMachine(std::string NewData)
