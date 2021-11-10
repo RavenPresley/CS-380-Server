@@ -1,6 +1,7 @@
 #pragma once
 #include <iostream>
 #include <vector>
+#include<algorithm>
 #include "Machine.h"
 class DataManager
 {
@@ -33,30 +34,47 @@ DataManager::DataManager()
 
 Machine NewMachine(std::string NewData)
 {
-	Machine m;
-	return m;
+	Data.push_back(Machine(NewData));
 }
 
 void DataManager::AddMachine(Machine newMachine)
 {
-	Data.push_back(newMachine);
 
 }
 
 void DataManager::DeleteMachine(Machine delMachine)
 {
+	int index = SearchMachine(delMachine);
 	
-
+	if (index != -999)
+		Data.erase(index);
+	else
+		std::cout << "Machine to be deleted not found.";
 }
 
 void DataManager::EditMachine(Machine newMachine)
 {
+	std::string mString = newMachine.GetInfo();
+	
+	int index = SearchMachine(newMachine)
+
+
 
 }
 
 int DataManager::SearchMachine(Machine searchMachine)
-{
-	return 0;
+{	
+	int index = -999;
+	std::string aTag = searchMachine.GetAssetTag();
+
+	auto it = find_if(Data.begin(), Data.end(), [&aTag](Machine& m) {return m.GetAssetTag() == aTag; });
+	
+		if (it != Data.end())
+		{
+			 index = std::distance(Data.begin(), it); 
+		}
+			
+	return index;	//returns -999 if matching assetTag not found
 }
 
 void DataManager::DisplayInfo(Machine displayMachine)
