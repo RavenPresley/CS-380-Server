@@ -28,6 +28,8 @@ public:
 	void UpdateCsv();
 	//Pull info from csv into Data Vector
 	void PullFromCsv();
+	//Will print all machine's GetInfo
+	void PrintInfo();
 private:
 	std::vector<Machine> Data;
 };
@@ -79,6 +81,14 @@ void DataManager::PullFromCsv()
 		Data.push_back(temp);
 	}
 	//std::cout << "Data Size: " << Data.size() << std::endl;
+}
+
+void DataManager::PrintInfo()
+{
+	for (int i = 0; i < Data.size(); i++)
+	{
+		std::cout << Data.at(i).GetInfo() << std::endl;
+	}
 }
 
 Machine DataManager::NewMachine(std::string NewData)

@@ -1,5 +1,4 @@
 #include "DataManager.h"
-#include "HostManager.h"
 #include "Machine.h"
 #include "LoginStorage.h"
 #include <iostream>
@@ -18,6 +17,8 @@ int main()
 
 	//Testing DataManager
 	DataManager DM;
+	DM.PrintInfo();
+
 	//Open Server
 
 	//Wait for Connections/Commands from Client

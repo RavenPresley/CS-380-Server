@@ -127,7 +127,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DataManager.h" />
-    <ClInclude Include="HostManager.h" />
     <ClInclude Include="LoginStorage.h" />
     <ClInclude Include="Machine.h" />
   </ItemGroup>

@@ -259,9 +259,9 @@ void Machine::FromString(std::string csv)
 				temp = "";
 				break;
 			case 5:
-				if (temp == "true")
+				if (temp == "true" || temp == "TRUE")
 					SetIsMac(true);
-				else if (temp == "false")
+				else if (temp == "false" || temp == "FALSE")
 					SetIsMac(false);
 				temp = "";
 				break;

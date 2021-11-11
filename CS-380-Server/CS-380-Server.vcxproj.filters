@@ -26,9 +26,6 @@
     <ClInclude Include="DataManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="HostManager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="LoginStorage.h">
       <Filter>Header Files</Filter>
     </ClInclude>
