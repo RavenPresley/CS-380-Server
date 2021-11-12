@@ -1,3 +1,4 @@
+//Standard Includes
 #include "DataManager.h"
 #include "Machine.h"
 #include "LoginStorage.h"
@@ -5,37 +6,34 @@
 #include <string.h>
 using namespace std;
 
+//Server & Socket Functionality
 #undef UNICODE
-
 #define WIN32_LEAN_AND_MEAN
-
 #include <windows.h>
 #include <winsock2.h>
 #include <ws2tcpip.h>
 #include <stdlib.h>
 #include <stdio.h>
-
 // Need to link with Ws2_32.lib
 #pragma comment (lib, "Ws2_32.lib")
 // #pragma comment (lib, "Mswsock.lib")
-
 #define DEFAULT_BUFLEN 512
 #define DEFAULT_PORT "27015"
 
-int __cdecl main(void)
+int main()
 {
-	WSADATA wsaData;
-	int iResult;
+	WSADATA wsaData;//Windows socket information
+	int iResult;//Test result for success of server
 
-	SOCKET ListenSocket = INVALID_SOCKET;
-	SOCKET ClientSocket = INVALID_SOCKET;
+	SOCKET ListenSocket = INVALID_SOCKET;//Initialize the ListenSocket
+	SOCKET ClientSocket = INVALID_SOCKET;//Initialize the ClientSocket
 
-	struct addrinfo* result = NULL;
-	struct addrinfo hints;
+	struct addrinfo* result = NULL;//Initialize Addrinfo struct result?
+	struct addrinfo hints;//Initialize Addrinfo struct hints?
 
-	int iSendResult;
-	char recvbuf[DEFAULT_BUFLEN];
-	int recvbuflen = DEFAULT_BUFLEN;
+	int iSendResult;//Test result for success of server
+	char recvbuf[DEFAULT_BUFLEN];//Initialize the buffer for received words
+	int recvbuflen = DEFAULT_BUFLEN;//Initialize the length of the buffer
 
 	// Initialize Winsock
 	iResult = WSAStartup(MAKEWORD(2, 2), &wsaData);
