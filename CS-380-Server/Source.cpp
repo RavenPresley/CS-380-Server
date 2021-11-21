@@ -22,9 +22,12 @@ using namespace std;
 // #pragma comment (lib, "Mswsock.lib")
 #define DEFAULT_BUFLEN 512
 #define DEFAULT_PORT "27015"
+void Command(string input);
 
 int main()
 {
+	//Server
+	/*
 	WSADATA wsaData;//Windows socket information
 	int iResult;//Test result for success of server
 
@@ -140,6 +143,40 @@ int main()
 	// cleanup
 	closesocket(ClientSocket);
 	WSACleanup();
-
+	*/
 	return 0;
+}
+
+void Command(string input)
+{
+	//Standard Input Format:
+	//Command;Data in csv format
+	DataManager dm;
+	char Command = ' ';
+	while (input[0] != ';')
+	{
+		Command = input[0];
+		input.erase(input.begin());
+	}
+	input.erase(input.begin());
+
+	//Input will contain the data, and the switch statement will do the proper thing with that data.
+	
+	switch (Command)
+	{
+	case 'A':
+		cout << Command << " " << input;
+		break;
+	case 'D':
+		cout << Command << " " << input;
+		break;
+	case 'E':
+		cout << Command << " " << input;
+		break;
+	case 'S':
+		cout << Command << " " << input;
+		break;
+	default:
+		cout << "Invalid Command";
+	}
 }

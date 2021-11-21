@@ -1,3 +1,4 @@
 ﻿  Source.cpp
 C:\Users\Jon\Desktop\CS 380 Project\CS-380-Server\CS-380-Server\DataManager.h(51,19): warning C4018:  '<': signed/unsigned mismatch
 C:\Users\Jon\Desktop\CS 380 Project\CS-380-Server\CS-380-Server\DataManager.h(88,20): warning C4018:  '<': signed/unsigned mismatch
+  CS-380-Server.vcxproj -> C:\Users\Jon\Desktop\CS 380 Project\CS-380-Server\CS-380-Server\Debug\CS-380-Server.exe
