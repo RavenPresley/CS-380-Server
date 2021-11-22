@@ -24,6 +24,8 @@ using namespace std;
 #define DEFAULT_PORT "27015"
 void Command(string input);
 
+// Code for LoginStorage will be placed at the bottom in the form of a comment to be placed appropriately within this file
+
 int main()
 {
 	//Server
@@ -183,3 +185,69 @@ void Command(string input)
 		cout << "Invalid Command";
 	}
 }
+
+/*
+// The following pseudo-code may also be better implemented into LoginStorage instead of into the source file, but I'm going to put this here for now
+// There will be 3 options for creating/updating user login information
+// 1.) User 1 information
+// 2.) User 2 Information
+// 3.) Information for both users
+// The following code won't be perfect but I think it should be a good framework for what needs to be done
+
+LoginManager Login;
+
+// If logging in
+bool loginResult = false;
+int numAttempts = 0;
+
+while (!loginResult) // Should probably replace this with a do-while loop
+{
+	cin >> userNameAttempt;
+	cin >> passwordAttempt;
+
+	loginResult = Login.TryLogin(userNameAttempt, passwordAttempt);
+	numAttempts++;
+	if ((numAttempts < 5) && (loginResult == true))
+	{
+		// Break Cycle - Successful Login
+	}
+	else if (numAttempts >= 5)
+	{
+		// Break cycle - Too many login attempts
+	}
+}
+
+// For CreateLogin, since we know will have a maximum of 2 users, I figured it would be easiest to have parameters for each user name and password and the userNum
+// If only 1 user is used, information for user 2 will be NULL. The only problem is that if you update info for 1 user, you would have to update info for both users
+// to work properly. Unless of course we determine that information cannot be updated, only created when the program is first ran. IDK we can mess around with it
+// If creating a login
+if (num == 1)
+{
+	cin >> newUserName1;
+	cin >> newPassword1;
+	newUserName2 = NULL;
+	newPassword2 = NULL;
+	
+	Login.CreateLogin(num, newUserName1, newPassword1, newUserName2, NewPassword2);
+}
+else if (num == 2)
+{
+	cin >> newUserName2;
+	cin >> newPassword2;
+	newUserName2 = NULL;
+	newPassword2 = NULL;
+	
+	Login.CreateLogin(num, newUserName1, newPassword1, newUserName2, NewPassword2);
+}
+else if (num == 3)
+{
+	cin >> newUserName1;
+	cin >> newPassword1;
+	cin >> newUserName2;
+	cin >> newPassword2;
+	
+	Login.CreateLogin(num, newUserName1, newPassword1, newUserName2, NewPassword2);
+}
+
+
+*/
