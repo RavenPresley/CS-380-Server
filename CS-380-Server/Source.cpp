@@ -164,16 +164,19 @@ void Command(string input)
 	
 	switch (Command)
 	{
-	case 'A':
+	case 'A'://AddMachine
 		cout << Command << " " << input;
 		break;
-	case 'D':
+	case 'D'://DeleteMachine
 		cout << Command << " " << input;
 		break;
-	case 'E':
+	case 'E'://EditMachine
 		cout << Command << " " << input;
 		break;
-	case 'S':
+	case 'S'://SearchMachine
+		cout << Command << " " << input;
+		break;
+	case 'L'://CheckLogin
 		cout << Command << " " << input;
 		break;
 	default:
