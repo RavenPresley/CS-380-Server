@@ -22,12 +22,12 @@ using namespace std;
 // #pragma comment (lib, "Mswsock.lib")
 #define DEFAULT_BUFLEN 512
 #define DEFAULT_PORT "27015"
-void Command(string input);
+string TryCommand(string input);
 
 int main()
 {
 	//Server
-	/*
+	
 	WSADATA wsaData;//Windows socket information
 	int iResult;//Test result for success of server
 
@@ -105,19 +105,43 @@ int main()
 
 	// Receive until the peer shuts down the connection
 	do {
-
+		string ret;
+		char sendbuf[DEFAULT_BUFLEN];
 		iResult = recv(ClientSocket, recvbuf, recvbuflen, 0);
 		if (iResult > 0) {
-			printf("Bytes received: %d\n", iResult);
+			//Print Full Command
+			printf("Command received: %d\n", iResult);
 
-			// Echo the buffer back to the sender
-			iSendResult = send(ClientSocket, recvbuf, iResult, 0);
+			if (recvbuf == "ESTABLISH")
+			{
+				printf("Connection Established\n");
+				iSendResult = send(ClientSocket, recvbuf, iResult, 0);
+			}
+			else
+			{
+				//Send the command to TryCommand for parsing and action
+				ret = TryCommand(recvbuf);
+
+				//Check if return is CSV, if so enter loop to send all lines to client
+				if (ret == "CSV")
+				{
+
+				}
+
+				//Turn the return into the correct format
+				strcpy(sendbuf, ret.c_str());
+				//Send the return back
+				iSendResult = send(ClientSocket, sendbuf, iResult, 0);
+			}
+
+			//Make sure there was no error
 			if (iSendResult == SOCKET_ERROR) {
 				printf("send failed with error: %d\n", WSAGetLastError());
 				closesocket(ClientSocket);
 				WSACleanup();
 				return 1;
 			}
+			//Print what was sent
 			printf("Bytes sent: %d\n", iSendResult);
 		}
 		else if (iResult == 0)
@@ -143,11 +167,11 @@ int main()
 	// cleanup
 	closesocket(ClientSocket);
 	WSACleanup();
-	*/
+	
 	return 0;
 }
 
-void Command(string input)
+string TryCommand(string input)
 {
 	//Standard Input Format:
 	//Command;Data in csv format
@@ -162,24 +186,37 @@ void Command(string input)
 
 	//Input will contain the data, and the switch statement will do the proper thing with that data.
 	
+	string message;
 	switch (Command)
 	{
 	case 'A'://AddMachine
 		cout << Command << " " << input;
+		message = "Machine Added";
 		break;
 	case 'D'://DeleteMachine
 		cout << Command << " " << input;
+		message = "Machine Deleted";
+		break;
+	case 'C'://Send CSV
+		cout << Command << " " << input;
+		message = "CSV";
 		break;
 	case 'E'://EditMachine
 		cout << Command << " " << input;
+		message = "Machine Edited";
 		break;
 	case 'S'://SearchMachine
 		cout << Command << " " << input;
+		message = "Machine Found at";
 		break;
 	case 'L'://CheckLogin
 		cout << Command << " " << input;
+		message = "Login Successful/Unsuccsessful";
 		break;
 	default:
 		cout << "Invalid Command";
+		return "ERR";
 	}
+
+	return message;
 }

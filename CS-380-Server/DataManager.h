@@ -30,6 +30,10 @@ public:
 	void PullFromCsv();
 	//Will print all machine's GetInfo
 	void PrintInfo();
+	//Will return the size of the data
+	int GetSize();
+	//Will return machine information at given index
+	std::string GetMachineAt(int index);
 private:
 	std::vector<Machine> Data;
 };
@@ -37,6 +41,20 @@ private:
 DataManager::DataManager()
 {
 	PullFromCsv();
+}
+
+int DataManager::GetSize()
+{
+	return Data.size();
+}
+
+std::string DataManager::GetMachineAt(int index)
+{
+	UpdateCsv();
+	PullFromCsv();
+	string temp;
+	temp = Data.at(index).GetInfo();
+	return temp;
 }
 
 void DataManager::UpdateCsv()
@@ -63,7 +81,8 @@ void DataManager::PullFromCsv()
 	csv.open("data.csv", std::ios::in);
 
 	std::string line,temp;
-
+	//Empty Vector
+	Data.clear();
 	//Get Header
 	std::getline(csv, line,'\n');
 	//std::cout << "Header: " <<line << std::endl;
