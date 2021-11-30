@@ -196,6 +196,8 @@ string TryCommand(string input)
 	//Input will contain the data, and the switch statement will do the proper thing with that data.
 	
 	string message;
+	string loginInfo;
+	LoginStorage Login;
 	switch (Command)
 	{
 	case 'A'://AddMachine
@@ -220,7 +222,24 @@ string TryCommand(string input)
 		break;
 	case 'L'://CheckLogin
 		cout << Command << " " << input;
-		message = "Login Successful/Unsuccsessful";
+		// LoginStorage Login;
+		// std::string loginInfo;
+		int attempts;
+		bool result;
+		
+		result = Login.TryLogin(loginInfo);
+		Login.IncreaseAttempts();
+		attempts = Login.LoginAttempts();
+
+		if ((result == true) && (attempts < 2))
+		{
+			message = "Login Successful";
+		}
+		else
+		{
+			message = "Login Unsuccessful";
+		}
+		
 		break;
 	default:
 		cout << "Invalid Command";
@@ -229,71 +248,3 @@ string TryCommand(string input)
 
 	return message;
 }
-
-
-
-/*
-// The following pseudo-code may also be better implemented into LoginStorage instead of into the source file, but I'm going to put this here for now
-// There will be 3 options for creating/updating user login information
-// 1.) User 1 information
-// 2.) User 2 Information
-// 3.) Information for both users
-// The following code won't be perfect but I think it should be a good framework for what needs to be done
-
-LoginManager Login;
-
-// If logging in
-bool loginResult = false;
-int numAttempts = 0;
-
-while (!loginResult) // Should probably replace this with a do-while loop
-{
-	cin >> userNameAttempt;
-	cin >> passwordAttempt;
-
-	loginResult = Login.TryLogin(userNameAttempt, passwordAttempt);
-	numAttempts++;
-	if ((numAttempts < 5) && (loginResult == true))
-	{
-		// Break Cycle - Successful Login
-	}
-	else if (numAttempts >= 5)
-	{
-		// Break cycle - Too many login attempts
-	}
-}
-
-// For CreateLogin, since we know will have a maximum of 2 users, I figured it would be easiest to have parameters for each user name and password and the userNum
-// If only 1 user is used, information for user 2 will be NULL. The only problem is that if you update info for 1 user, you would have to update info for both users
-// to work properly. Unless of course we determine that information cannot be updated, only created when the program is first ran. IDK we can mess around with it
-// If creating a login
-if (num == 1)
-{
-	cin >> newUserName1;
-	cin >> newPassword1;
-	newUserName2 = NULL;
-	newPassword2 = NULL;
-	
-	Login.CreateLogin(num, newUserName1, newPassword1, newUserName2, NewPassword2);
-}
-else if (num == 2)
-{
-	cin >> newUserName2;
-	cin >> newPassword2;
-	newUserName2 = NULL;
-	newPassword2 = NULL;
-	
-	Login.CreateLogin(num, newUserName1, newPassword1, newUserName2, NewPassword2);
-}
-else if (num == 3)
-{
-	cin >> newUserName1;
-	cin >> newPassword1;
-	cin >> newUserName2;
-	cin >> newPassword2;
-	
-	Login.CreateLogin(num, newUserName1, newPassword1, newUserName2, NewPassword2);
-}
-
-
-*/
