@@ -105,22 +105,29 @@ int main()
 	// No longer need server socket
 	closesocket(ListenSocket);
 
+	
 	// Receive until the peer shuts down the connection
 	do {
-		string ret;
+		string ret = "";
+		string buff = "";
 		char sendbuf[DEFAULT_BUFLEN];
 		iResult = recv(ClientSocket, recvbuf, recvbuflen, 0);
 		if (iResult > 0) {
 			//Print Full Command
-			printf("Command received: %d\n", iResult);
-
-			if (recvbuf == "ESTABLISH")
+			printf("Bytes received: %d\n", iResult);
+			for (int i = 0; i < iResult; i++)
+			{
+				buff += recvbuf[i];
+			}
+			
+			if (buff == "ESTABLISH")
 			{
 				printf("Connection Established\n");
 				iSendResult = send(ClientSocket, recvbuf, iResult, 0);
 			}
 			else
 			{
+				cout << "Buffer to pass: " << buff << endl;
 				//Send the command to TryCommand for parsing and action
 				ret = TryCommand(recvbuf);
 
@@ -131,7 +138,7 @@ int main()
 				}
 
 				//Turn the return into the correct format
-				strcpy(sendbuf, ret.c_str());
+				strcpy_s(sendbuf, ret.c_str());
 				//Send the return back
 				iSendResult = send(ClientSocket, sendbuf, iResult, 0);
 			}
@@ -219,12 +226,11 @@ string TryCommand(string input)
 		cout << "Invalid Command";
 		return "ERR";
 	}
-<<<<<<< HEAD
 
 	return message;
 }
-=======
-}
+
+
 
 /*
 // The following pseudo-code may also be better implemented into LoginStorage instead of into the source file, but I'm going to put this here for now
@@ -291,4 +297,3 @@ else if (num == 3)
 
 
 */
->>>>>>> ce322aada9d1cc14832ad0a33e01ebd65da4ab8e

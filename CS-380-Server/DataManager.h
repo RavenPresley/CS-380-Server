@@ -52,7 +52,7 @@ std::string DataManager::GetMachineAt(int index)
 {
 	UpdateCsv();
 	PullFromCsv();
-	string temp;
+	std::string temp;
 	temp = Data.at(index).GetInfo();
 	return temp;
 }

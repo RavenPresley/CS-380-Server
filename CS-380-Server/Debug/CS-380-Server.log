@@ -1,8 +1,4 @@
 ﻿  Source.cpp
-C:\Users\Jon\Desktop\CS 380 Project\CS-380-Server\CS-380-Server\DataManager.h(55,2): error C2065:  'string': undeclared identifier
-C:\Users\Jon\Desktop\CS 380 Project\CS-380-Server\CS-380-Server\DataManager.h(55,9): error C2146:  syntax error: missing ';' before identifier 'temp'
-C:\Users\Jon\Desktop\CS 380 Project\CS-380-Server\CS-380-Server\DataManager.h(55,9): error C2065:  'temp': undeclared identifier
-C:\Users\Jon\Desktop\CS 380 Project\CS-380-Server\CS-380-Server\DataManager.h(56,2): error C2065:  'temp': undeclared identifier
-C:\Users\Jon\Desktop\CS 380 Project\CS-380-Server\CS-380-Server\DataManager.h(57,9): error C2065:  'temp': undeclared identifier
 C:\Users\Jon\Desktop\CS 380 Project\CS-380-Server\CS-380-Server\DataManager.h(69,19): warning C4018:  '<': signed/unsigned mismatch
 C:\Users\Jon\Desktop\CS 380 Project\CS-380-Server\CS-380-Server\DataManager.h(107,20): warning C4018:  '<': signed/unsigned mismatch
+  CS-380-Server.vcxproj -> C:\Users\Jon\Desktop\CS 380 Project\CS-380-Server\CS-380-Server\Debug\CS-380-Server.exe
