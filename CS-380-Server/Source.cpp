@@ -22,7 +22,7 @@ using namespace std;
 // #pragma comment (lib, "Mswsock.lib")
 #define DEFAULT_BUFLEN 512
 #define DEFAULT_PORT "27015"
-string TryCommand(string input, DataManager *dm);
+string TryCommand(string input, DataManager &dm);
 DataManager dm;
 // Code for LoginStorage will be placed at the bottom in the form of a comment to be placed appropriately within this file
 
@@ -180,7 +180,7 @@ int main()
 	return 0;
 }
 
-string TryCommand(string input, DataManager *dm)
+string TryCommand(string input, DataManager &dm)
 {
 	//Standard Input Format:
 	//Command;Data in csv format
@@ -208,8 +208,8 @@ string TryCommand(string input, DataManager *dm)
 		// Machine newMachine;
 		// ^^ Maybe we could do it this way? Although I believe it is meant to be done as shown below
 
-		machine = dm->NewMachine(input); // Creates a new machine with input machine data
-		dm->AddMachine(machine);		// Adds the new machine to the vector of machines
+		machine = dm.NewMachine(input); // Creates a new machine with input machine data
+		dm.AddMachine(machine);		// Adds the new machine to the vector of machines
 		message = "Machine Added";
 		break;
 	case 'D'://DeleteMachine
@@ -217,7 +217,7 @@ string TryCommand(string input, DataManager *dm)
 		
 									// Take the asset tag as input
 		machine.SetAssetTag(input); // Sets the asset tag for the machine object
-		dm->DeleteMachine(machine); // Passes that machine object through to DeleteMachine
+		dm.DeleteMachine(machine); // Passes that machine object through to DeleteMachine
 		message = "Machine Deleted";
 		break;
 	case 'C'://Send CSV
@@ -233,8 +233,8 @@ string TryCommand(string input, DataManager *dm)
 		// This is assuming that when editing a machine, you will just pass all of the machine's information...
 		// ...regardless of what data is actually being edited
 
-		machine = dm->NewMachine(input); // Create a machine object with new data for the machine being edited
-		dm->EditMachine(machine);		 // Pass that machine through EditMachine for its data to be updated
+		machine = dm.NewMachine(input); // Create a machine object with new data for the machine being edited
+		dm.EditMachine(machine);		 // Pass that machine through EditMachine for its data to be updated
 		message = "Machine Edited";
 		break;
 	case 'S'://SearchMachine
@@ -245,7 +245,7 @@ string TryCommand(string input, DataManager *dm)
 		// ... then pass that machine through SearchMachine to find its location
 
 		machine.SetAssetTag(input);
-		int location = dm->SearchMachine(machine);
+		int location = dm.SearchMachine(machine);
 
 		/*
 		This is for if we want to display all of the info for the searched asset tag:
