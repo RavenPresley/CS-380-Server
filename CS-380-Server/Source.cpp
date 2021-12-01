@@ -11,25 +11,29 @@ using namespace std;
 //Learn how to Run: https://docs.microsoft.com/en-us/windows/win32/winsock/finished-server-and-client-code
 //Will be altered and adapted to our uses, for now is just here to learn from and understand over time how it works.
 #undef UNICODE
+
 #define WIN32_LEAN_AND_MEAN
+
 #include <windows.h>
 #include <winsock2.h>
 #include <ws2tcpip.h>
 #include <stdlib.h>
 #include <stdio.h>
+
 // Need to link with Ws2_32.lib
 #pragma comment (lib, "Ws2_32.lib")
-// #pragma comment (lib, "Mswsock.lib")
+//#pragma comment (lib, "Mswsock.lib")
+
 #define DEFAULT_BUFLEN 512
 #define DEFAULT_PORT "27015"
-string TryCommand(string input, DataManager &dm);
+string TryCommand(string input);
 DataManager dm;
 // Code for LoginStorage will be placed at the bottom in the form of a comment to be placed appropriately within this file
 
-int main()
+int __cdecl main(void)
 {
 	//Server
-	
+	printf("Beginning Server\n");
 	WSADATA wsaData;//Windows socket information
 	int iResult;//Test result for success of server
 
@@ -42,7 +46,7 @@ int main()
 	int iSendResult;//Test result for success of server
 	char recvbuf[DEFAULT_BUFLEN];//Initialize the buffer for received words
 	int recvbuflen = DEFAULT_BUFLEN;//Initialize the length of the buffer
-
+	printf("Initialize Winsock\n");
 	// Initialize Winsock
 	iResult = WSAStartup(MAKEWORD(2, 2), &wsaData);
 	if (iResult != 0) {
@@ -56,6 +60,7 @@ int main()
 	hints.ai_protocol = IPPROTO_TCP;
 	hints.ai_flags = AI_PASSIVE;
 
+	printf("Resolve the server address and port\n");
 	// Resolve the server address and port
 	iResult = getaddrinfo(NULL, DEFAULT_PORT, &hints, &result);
 	if (iResult != 0) {
@@ -64,6 +69,7 @@ int main()
 		return 1;
 	}
 
+	printf("Setting Up SOCKET for connecting to server\n");
 	// Create a SOCKET for connecting to server
 	ListenSocket = socket(result->ai_family, result->ai_socktype, result->ai_protocol);
 	if (ListenSocket == INVALID_SOCKET) {
@@ -73,6 +79,7 @@ int main()
 		return 1;
 	}
 
+	printf("Setting Up TCP Listening Socket\n");
 	// Setup the TCP listening socket
 	iResult = bind(ListenSocket, result->ai_addr, (int)result->ai_addrlen);
 	if (iResult == SOCKET_ERROR) {
@@ -129,16 +136,16 @@ int main()
 			{
 				cout << "Buffer to pass: " << buff << endl;
 				//Send the command to TryCommand for parsing and action
-				ret = TryCommand(recvbuf);
-
+				ret = TryCommand(buff);
 				//Check if return is CSV, if so enter loop to send all lines to client
 				if (ret == "CSV")
 				{
 
 				}
-
+				
 				//Turn the return into the correct format
 				strcpy_s(sendbuf, ret.c_str());
+
 				//Send the return back
 				iSendResult = send(ClientSocket, sendbuf, iResult, 0);
 			}
@@ -180,7 +187,7 @@ int main()
 	return 0;
 }
 
-string TryCommand(string input, DataManager &dm)
+string TryCommand(string input)
 {
 	//Standard Input Format:
 	//Command;Data in csv format
@@ -196,14 +203,14 @@ string TryCommand(string input, DataManager &dm)
 	//Input will contain the data, and the switch statement will do the proper thing with that data.
 	
 	string message;
-	string loginInfo;
 	LoginStorage Login;
 	Machine machine;
+	int location = -999;
 
 	switch (Command)
 	{
 	case 'A'://AddMachine
-		cout << Command << " " << input;
+		cout << Command << " " << input << endl;
 		// newMachine.FromString(input);
 		// Machine newMachine;
 		// ^^ Maybe we could do it this way? Although I believe it is meant to be done as shown below
@@ -213,7 +220,7 @@ string TryCommand(string input, DataManager &dm)
 		message = "Machine Added";
 		break;
 	case 'D'://DeleteMachine
-		cout << Command << " " << input;
+		cout << Command << " " << input << endl;
 		
 									// Take the asset tag as input
 		machine.SetAssetTag(input); // Sets the asset tag for the machine object
@@ -221,14 +228,14 @@ string TryCommand(string input, DataManager &dm)
 		message = "Machine Deleted";
 		break;
 	case 'C'://Send CSV
-		cout << Command << " " << input;
-
+		cout << Command << " " << input << endl;
+		
 
 
 		message = "CSV";
 		break;
 	case 'E'://EditMachine
-		cout << Command << " " << input;
+		cout << Command << " " << input << endl;
 
 		// This is assuming that when editing a machine, you will just pass all of the machine's information...
 		// ...regardless of what data is actually being edited
@@ -238,14 +245,14 @@ string TryCommand(string input, DataManager &dm)
 		message = "Machine Edited";
 		break;
 	case 'S'://SearchMachine
-		cout << Command << " " << input;
+		cout << Command << " " << input << endl;
 		
 		// Since SearchMachine is passed a Machine but only searches by the asset tag...
 		// ... we'll take the assest tag as "input", use this input to set the asset tag of a machine object...
 		// ... then pass that machine through SearchMachine to find its location
 
 		machine.SetAssetTag(input);
-		int location = dm.SearchMachine(machine);
+		location = dm.SearchMachine(machine);
 
 		/*
 		This is for if we want to display all of the info for the searched asset tag:
@@ -258,29 +265,30 @@ string TryCommand(string input, DataManager &dm)
 		message = "Machine Found at index " + location;
 		break;
 	case 'L'://CheckLogin
-		cout << Command << " " << input;
+		cout << Command << " " << input << endl;
 
 		int attempts;
 		bool result;
 		
-		result = Login.TryLogin(loginInfo);
+		result = Login.TryLogin(input);
 		Login.IncreaseAttempts();
 		attempts = Login.LoginAttempts();
 
 		if ((result == true) && (attempts < 2))
 		{
-			message = "Login Successful";
+			message = "GRANTED";
 		}
 		else
 		{
-			message = "Login Unsuccessful";
+			message = "DENIED";
 		}
 		
 		break;
 	default:
-		cout << "Invalid Command";
+		cout << "Invalid Command" << endl;
 		return "ERR";
 	}
 
+	cout << message << endl;
 	return message;
 }

@@ -40,6 +40,10 @@ bool LoginStorage::TryLogin(std::string loginInput)
 {
 	PullFromText();
 
+	//Print Login for Testing Purposes
+	std::cout << loginInfo << std::endl;
+	std::cout << loginInput << std::endl;
+
 	if ((loginInput == loginInfo))
 	{
 		return true; 
