@@ -115,6 +115,7 @@ int __cdecl main(void)
 	
 	// Receive until the peer shuts down the connection
 	do {
+		cout << "Waiting for new command...\n";
 		string ret = "";
 		string buff = "";
 		char sendbuf[DEFAULT_BUFLEN];
