@@ -1,5 +1,6 @@
 AssetTag,ServiceTagNum,MakeAndModel,SerialNumber,IsMac,BuildingName,RoomNumber,PublicOrPrivate,DepartmentInfo,OwnerInfo,SurplusStatus,ReimageStatus,WorkingStatus,ITLocation,IUorOU
-6818,54561,Dell HP Laptop,8941891,FALSE,Bert Combs,301,Public,Business and Technology,Sherif Rashad,,,,,IU
-6819,54621,Dell Desktop,9684981,FALSE,,,,,,,,,TRUEFALSETRUEBack Room,OU
-1468,89498,Intel Cool Comp,51656,TRUE,Llloyd Cassidy,215,Private,Arts and Philosophy,Barack Obama,,,,,IU
-123,1254,Dell HP BigBruh,123123154,TRUE,Bert Bombs Building,132,Private,Convergent Media,James Madison,,,,,IU
+6818,54561,Dell HP Laptop,8941891,false,Bert Combs,301,Public,Business and Technology,Sherif Rashad,,,,,IU
+6819,54621,Dell Desktop,9684981,false,,,,,,,,,TRUEFALSETRUEBack Room,OU
+1468,89498,Intel Cool Comp,51656,true,Llloyd Cassidy,215,Private,Arts and Philosophy,Barack Obama,,,,,IU
+123,1254,Dell HP BigBruh,123123154,true,Bert Bombs Building,132,Private,Convergent Media,James Madison,,,,,IU
+12345,123456,HP,1234567,false,BCB,123,Public,Technology,Sherif,,,,,IU

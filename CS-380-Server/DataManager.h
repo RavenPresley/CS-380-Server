@@ -130,7 +130,7 @@ void DataManager::DeleteMachine(Machine delMachine)
 	if (index != -999)
 		Data.erase(Data.begin() + index);
 	else
-		std::cout << "Machine to be deleted not found.";
+		std::cout << "Machine to be deleted not found.\n";
 
 	UpdateCsv();
 }
