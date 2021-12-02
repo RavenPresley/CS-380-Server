@@ -263,7 +263,8 @@ string TryCommand(string input)
 
 		*/
 
-		message = "Machine Found at index " + location;
+		message = "Machine Found at index ";
+		message += to_string(location);
 		break;
 	case 'L'://CheckLogin
 		cout << Command << " " << input << endl;
