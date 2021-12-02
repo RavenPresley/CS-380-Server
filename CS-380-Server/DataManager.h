@@ -34,6 +34,8 @@ public:
 	int GetSize();
 	//Will return machine information at given index
 	std::string GetMachineAt(int index);
+	//Will sort the vector
+	void SortVec();
 private:
 	std::vector<Machine> Data;
 };
@@ -41,6 +43,12 @@ private:
 DataManager::DataManager()
 {
 	PullFromCsv();
+	SortVec();
+}
+
+void DataManager::SortVec()
+{
+	std::sort(Data.begin(), Data.end());
 }
 
 int DataManager::GetSize()
@@ -61,6 +69,8 @@ void DataManager::UpdateCsv()
 {
 	std::string Header = "AssetTag,ServiceTagNum,MakeAndModel,SerialNumber,IsMac,BuildingName,RoomNumber,PublicOrPrivate,DepartmentInfo,OwnerInfo,SurplusStatus,ReimageStatus,WorkingStatus,ITLocation,IUorOU";
 	
+	SortVec();
+
 	std::ofstream csv("data.csv");
 	csv.clear();
 
@@ -120,6 +130,7 @@ Machine DataManager::NewMachine(std::string NewData)
 void DataManager::AddMachine(Machine newMachine)
 {
 	Data.push_back(newMachine);
+	SortVec();
 	UpdateCsv();
 }
 
@@ -131,7 +142,7 @@ void DataManager::DeleteMachine(Machine delMachine)
 		Data.erase(Data.begin() + index);
 	else
 		std::cout << "Machine to be deleted not found.\n";
-
+	SortVec();
 	UpdateCsv();
 }
 
@@ -142,7 +153,7 @@ void DataManager::EditMachine(Machine newMachine)
 	int index = SearchMachine(newMachine);
 
 	Data.at(index) = newMachine;
-
+	SortVec();
 	UpdateCsv();
 }
 

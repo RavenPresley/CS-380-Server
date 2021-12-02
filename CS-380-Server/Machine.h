@@ -55,6 +55,7 @@ public:
 	bool GetWorkingStatus();
 	std::string GetIT_Location();
 
+	bool operator< (Machine& other);
 private:
 	std::string assetTag;
 	std::string serviceTagNum;
@@ -142,6 +143,11 @@ std::string Machine::GetInfo()
 	Info += UseStatus;
 
 	return Info;
+}
+
+bool Machine::operator<(Machine& other)
+{
+	return (this->GetAssetTag() < other.GetAssetTag());
 }
 
 std::string Machine::GetAssetTag()

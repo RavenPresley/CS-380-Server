@@ -44,8 +44,11 @@ int __cdecl main(void)
 	struct addrinfo hints;//Initialize Addrinfo struct hints?
 
 	int iSendResult;//Test result for success of server
-	char recvbuf[DEFAULT_BUFLEN];//Initialize the buffer for received words
 	int recvbuflen = DEFAULT_BUFLEN;//Initialize the length of the buffer
+	int sendbuflen = DEFAULT_BUFLEN;
+	char recvbuf[DEFAULT_BUFLEN];//Initialize the buffer for received words
+	char sendbuf[DEFAULT_BUFLEN];
+	
 	printf("Initialize Winsock\n");
 	// Initialize Winsock
 	iResult = WSAStartup(MAKEWORD(2, 2), &wsaData);
@@ -118,7 +121,7 @@ int __cdecl main(void)
 		cout << "Waiting for new command...\n";
 		string ret = "";
 		string buff = "";
-		char sendbuf[DEFAULT_BUFLEN];
+		
 		iResult = recv(ClientSocket, recvbuf, recvbuflen, 0);
 		if (iResult > 0) {
 			//Print Full Command
@@ -138,17 +141,12 @@ int __cdecl main(void)
 				cout << "Buffer to pass: " << buff << endl;
 				//Send the command to TryCommand for parsing and action
 				ret = TryCommand(buff);
-				//Check if return is CSV, if so enter loop to send all lines to client
-				if (ret == "CSV")
-				{
-
-				}
-				
+				cout << "Result from TryCommand: " << ret << endl;
 				//Turn the return into the correct format
 				strcpy_s(sendbuf, ret.c_str());
-
+				cout << "Sendbuf before sending: " << sendbuf << endl;
 				//Send the return back
-				iSendResult = send(ClientSocket, sendbuf, iResult, 0);
+				iSendResult = send(ClientSocket, sendbuf, (int)strlen(sendbuf), 0);
 			}
 
 			//Make sure there was no error
@@ -263,8 +261,7 @@ string TryCommand(string input)
 
 		*/
 
-		message = "Machine Found at index ";
-		message += to_string(location);
+		message = to_string(location);
 		break;
 	case 'L'://CheckLogin
 		cout << Command << " " << input << endl;
@@ -278,7 +275,7 @@ string TryCommand(string input)
 
 		if ((result == true) && (attempts < 2))
 		{
-			message = "GRANTED";
+			message = "ACCEPT";
 		}
 		else
 		{
