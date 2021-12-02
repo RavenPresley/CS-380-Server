@@ -14,7 +14,7 @@ public:
 	void SetServiceTagNum(std::string);
 	void SetMakeAndModel(std::string);
 	void SetSerialNum(std::string);
-	void SetIsMac(bool);
+	void SetIsMac(std::string);
 
 	std::string GetInfo();
 
@@ -22,10 +22,10 @@ public:
 	std::string GetServiceTagNum();
 	std::string GetMakeAndModel();
 	std::string GetSerialNum();
-	bool GetIsMac();
+	std::string GetIsMac();
 
 	void MoveInUse(std::string buildingName, std::string roomNum, std::string publicOrPrivate, std::string departmentInfo, std::string ownerInfo);
-	void MoveOutOfUse(bool surplusStatus, bool reimageStatus, bool workingStatus, std::string IT_Location);
+	void MoveOutOfUse(std::string surplusStatus, std::string reimageStatus, std::string workingStatus, std::string IT_Location);
 	void SetUseStatus(std::string);
 	std::string GetUseStatus();
 
@@ -45,14 +45,14 @@ public:
 
 			// Out of Use Machine
 	
-	void SetSurplusStatus(bool);
-	void SetReimageStatus(bool);
-	void SetWorkingStatus(bool);
+	void SetSurplusStatus(std::string);
+	void SetReimageStatus(std::string);
+	void SetWorkingStatus(std::string);
 	void SetIT_Location(std::string);
 
-	bool GetSurplusStatus();
-	bool GetReimageStatus();
-	bool GetWorkingStatus();
+	std::string GetSurplusStatus();
+	std::string GetReimageStatus();
+	std::string GetWorkingStatus();
 	std::string GetIT_Location();
 
 	bool operator< (Machine& other);
@@ -61,7 +61,7 @@ private:
 	std::string serviceTagNum;
 	std::string makeAndModel;
 	std::string serialNum;
-	bool isMac;
+	std::string isMac;
 
 
 	std::string UseStatus; // String that will always contain IU or OU
@@ -75,9 +75,9 @@ private:
 	std::string ownerInfo;
 
 				// Out of Use Machine
-	bool surplusStatus;
-	bool reimageStatus;
-	bool workingStatus;
+	std::string surplusStatus;
+	std::string reimageStatus;
+	std::string workingStatus;
 	std::string IT_Location;
 
 
@@ -86,7 +86,6 @@ private:
 std::string Machine::GetInfo()
 {
 	std::string Info;
-	std::string temp;
 
 	Info += GetAssetTag();
 	Info += ',';
@@ -96,13 +95,7 @@ std::string Machine::GetInfo()
 	Info += ',';
 	Info += GetSerialNum();
 	Info += ',';
-	if (GetIsMac() == true)
-		temp = "true";
-	else if (GetIsMac() == false)
-		temp = "false";
-	else
-		temp = "";
-	Info += temp;//IsMac
+	Info += GetIsMac();
 	Info += ',';
 	Info += GetBuildingName(); //Building Name
 	Info += ',';
@@ -114,33 +107,15 @@ std::string Machine::GetInfo()
 	Info += ',';
 	Info += GetOwnerInfo();//OwnerInfo
 	Info += ',';
-	if (GetSurplusStatus() == true)
-		temp = "true";
-	else if (GetSurplusStatus() == false)
-		temp = "false";
-	else
-		temp = "";
-	Info += temp;//SurplusStatus
+	Info += GetSurplusStatus();//Surplus Status
 	Info += ',';
-	if (GetReimageStatus() == true)
-		temp = "true";
-	else if (GetReimageStatus() == false)
-		temp = "false";
-	else
-		temp = "";
-	Info += temp;//reimageStatus
+	Info += GetReimageStatus();//Reimage Status
 	Info += ',';
-	if (GetWorkingStatus() == true)
-		temp = "true";
-	else if (GetWorkingStatus() == false)
-		temp = "false";
-	else
-		temp = "";
-	Info += temp;//workingStatus
+	Info += GetWorkingStatus();//workingStatus
 	Info += ',';
 	Info += GetIT_Location();//IT_Location
 	Info += ',';
-	Info += UseStatus;
+	Info += UseStatus;//Use Status
 
 	return Info;
 }
@@ -170,7 +145,7 @@ std::string Machine::GetSerialNum()
 	return serialNum;
 }
 
-bool Machine::GetIsMac()
+std::string Machine::GetIsMac()
 {
 	return isMac;
 }
@@ -182,7 +157,7 @@ Machine::Machine()
 	SetServiceTagNum("");
 	SetMakeAndModel("");
 	SetSerialNum("");
-	SetIsMac(false);
+	SetIsMac("");
 	//In Use
 	SetBuildingName("");
 	SetRoomNum("");
@@ -190,9 +165,9 @@ Machine::Machine()
 	SetDepartmentInfo("");
 	SetOwnerInfo("");
 	//Out of Use
-	//SetSurplusStatus(NULL);
-	//SetReimageStatus(NULL);
-	//SetWorkingStatus(NULL);
+	SetSurplusStatus("");
+	SetReimageStatus("");
+	SetWorkingStatus("");
 	SetIT_Location("");
 	//UseStatus
 	UseStatus = "";
@@ -265,10 +240,7 @@ void Machine::FromString(std::string csv)
 				temp = "";
 				break;
 			case 5:
-				if (temp == "true" || temp == "TRUE")
-					SetIsMac(true);
-				else if (temp == "false" || temp == "FALSE")
-					SetIsMac(false);
+				SetIsMac(temp);
 				temp = "";
 				break;
 			case 6:
@@ -292,22 +264,16 @@ void Machine::FromString(std::string csv)
 				temp = "";
 				break;
 			case 11:
-				if (temp == "true")
-					SetSurplusStatus(true);
-				else if (temp == "false")
-					SetSurplusStatus(false);
+				SetSurplusStatus(temp);
+				temp = "";
 				break;
 			case 12:
-				if (temp == "true")
-					SetReimageStatus(true);
-				else if (temp == "false")
-					SetReimageStatus(false);
+				SetReimageStatus(temp);
+				temp = "";
 				break;
 			case 13:
-				if (temp == "true")
-					SetWorkingStatus(true);
-				else if (temp == "false")
-					SetWorkingStatus(false);
+				SetWorkingStatus(temp);
+				temp = "";
 				break;
 			case 14:
 				SetIT_Location(temp);
@@ -336,7 +302,7 @@ void Machine::FromString(std::string csv)
 
 }
 
-void Machine::SetIsMac(bool input)
+void Machine::SetIsMac(std::string input)
 {
 	isMac = input;
 	return;
@@ -387,7 +353,7 @@ void Machine::MoveInUse(std::string buildingName, std::string roomNum, std::stri
 	SetIT_Location("");
 }
 
-void Machine::MoveOutOfUse(bool surplusStatus, bool reimageStatus, bool workingStatus, std::string IT_Location)
+void Machine::MoveOutOfUse(std::string surplusStatus, std::string reimageStatus, std::string workingStatus, std::string IT_Location)
 {
 	if (UseStatus == "OU")
 	{
@@ -467,17 +433,17 @@ std::string Machine::GetOwnerInfo()
 ///////////////////////////////////////////////////////////////
 // Out-of-Use Machine - Set Info
 
-void Machine::SetSurplusStatus(bool input)
+void Machine::SetSurplusStatus(std::string input)
 {
 	surplusStatus = input;
 	return;
 }
-void Machine::SetReimageStatus(bool input)
+void Machine::SetReimageStatus(std::string input)
 {
 	reimageStatus = input; 
 	return;
 }
-void Machine::SetWorkingStatus(bool input)
+void Machine::SetWorkingStatus(std::string input)
 {
 	workingStatus = input;
 	return;
@@ -490,15 +456,15 @@ void Machine::SetIT_Location(std::string input)
 
 // Out-of-Use Machine - Get Info
 
-bool Machine::GetSurplusStatus()
+std::string Machine::GetSurplusStatus()
 {
 	return surplusStatus;
 }
-bool Machine::GetReimageStatus()
+std::string Machine::GetReimageStatus()
 {
 	return reimageStatus;
 }
-bool Machine::GetWorkingStatus()
+std::string Machine::GetWorkingStatus()
 {
 	return workingStatus;
 }
